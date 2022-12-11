@@ -5,16 +5,19 @@
 import string
 from collections import Counter
 
-f=open('input_3_12')
+def return_priority_from_toy(toy):
+    latin_alphabet=list(string.ascii_letters)
+    priority=latin_alphabet.index(common_toy)+1
+    return priority
 
-latin_alphabet=list(string.ascii_letters)
+f=open('input_3_12')
+list_toys=[line.strip() for line in f.readlines()]
+
 list_priorities=[]
 list_priorities_with_mult=[]
 list_priorities_pt2=[]
-list_lines=[line.strip() for line in f.readlines()]
 
-for i_line,line in enumerate(list_lines):
-    toys=line
+for i_line,toys in enumerate(list_toys):
 
     # part 1
     n_toys=len(toys)
@@ -25,7 +28,7 @@ for i_line,line in enumerate(list_lines):
         pass
     else:
         for common_toy in common_toys:
-            priority=latin_alphabet.index(common_toy)+1
+            priority=return_priority_from_toy(common_toy)
             list_priorities.append(priority)
             # the part below is only if the same item on both sides had to be counted more than once for the priority count
             counter_compartment_1=Counter(toys_compartment_1) 
@@ -35,12 +38,12 @@ for i_line,line in enumerate(list_lines):
     
     # part 2
     if i_line%3==0:
-        toys_elf_1=list_lines[i_line]
-        toys_elf_2=list_lines[i_line+1]
-        toys_elf_3=list_lines[i_line+2]
+        toys_elf_1=list_toys[i_line]
+        toys_elf_2=list_toys[i_line+1]
+        toys_elf_3=list_toys[i_line+2]
         common_toys_3_rucksacks=set(toys_elf_1).intersection(set(toys_elf_2),set(toys_elf_3))
         for common_toy in common_toys_3_rucksacks:
-            priority_pt2=latin_alphabet.index(common_toy)+1
+            priority_pt2= return_priority_from_toy(common_toy)
             list_priorities_pt2.append(priority_pt2)
 
 
